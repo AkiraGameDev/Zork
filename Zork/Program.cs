@@ -10,20 +10,7 @@ namespace Zork
         {
             get
             {
-                return Rooms[LocationColumn];
-            }
-            set
-            {
-                for(int column = 0; column < Rooms.Length; column++)
-                {
-                    if(Rooms[column] == value)
-                    {
-                        LocationColumn = column;
-                       ;
-                    }
-                }
-
-                throw new Exception("Room not found.");
+                return Rooms[Location.Row, Location.Column];
             }
         }
 
@@ -33,11 +20,11 @@ namespace Zork
 
             string outputString;
             Commands command = Commands.UNKNOWN;
-            CurrentRoom = "West of House";
 
             while (command != Commands.QUIT)
             {
-                Console.WriteLine($"{CurrentRoom}\n> ");
+                Console.WriteLine($"{CurrentRoom}");
+                Console.Write("> ");
                 command = ToCommand(Console.ReadLine().Trim());
                 
                 switch(command)
@@ -71,19 +58,24 @@ namespace Zork
         {
             Assert.IsTrue(IsDirection(command), "Invalid direction.");
 
-            bool isValidMove = false;
+            bool isValidMove = true;
 
-            //(for Zork 2.1) excluded default, north and south cases because they simply reassign 
-            // isValidMove to false I assume this is faster because we are searching for less cases
             switch (command)
             {
-                case Commands.EAST when LocationColumn < Rooms.Length - 1:
-                    LocationColumn++;
-                    isValidMove = true;
+                case Commands.NORTH when Location.Row < Rooms.GetLength(0) - 1:
+                    Location.Row++;
                     break;
-                case Commands.WEST when LocationColumn > 0:
-                    LocationColumn--;
-                    isValidMove = true;
+                case Commands.SOUTH when Location.Row > 0:
+                    Location.Row--;
+                    break;
+                case Commands.EAST when Location.Column < Rooms.GetLength(1) - 1:
+                    Location.Column++;
+                    break;
+                case Commands.WEST when Location.Column > 0:
+                    Location.Column--;
+                    break;
+                default:
+                    isValidMove = false;
                     break;
             }
 
@@ -95,13 +87,11 @@ namespace Zork
 
         private static bool IsDirection(Commands command) => Directions.Contains(command);
 
-        private static readonly string[] Rooms = 
-        {   
-            "Forest", 
-            "West of House", 
-            "Behind House", 
-            "Clearing", 
-            "Canyon View" 
+        private static readonly string[,] Rooms = 
+        {
+            { "Rocky Trail", "South of House", "Canyon View" },
+            { "Forest", "West of House", "Behind House" },
+            { "Dense Forest", "North of House", "Clearing" }
         };
 
         //stuck with the array here because it's a simpler structure, and i believe it's faster
@@ -113,6 +103,6 @@ namespace Zork
             Commands.WEST
         };
 
-        private static int LocationColumn = 1;
+        private static (int Row, int Column) Location = (1, 1);
     }
 }
