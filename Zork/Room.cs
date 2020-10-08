@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Zork
+﻿namespace Zork
 {
     public class Room
     {
