@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ZorkGUI
 {
-    public partial class NoWorldSelected : Form
+    public partial class MainForm : Form
     {
-        public NoWorldSelected()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -143,6 +143,26 @@ namespace ZorkGUI
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteRoomButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
         {
 
         }
