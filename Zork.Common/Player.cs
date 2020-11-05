@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
-
+using System.ComponentModel;
 
 namespace Zork
 {
-    public class Player
+    public class Player : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public World World { get; }
 
         [JsonIgnore]
@@ -28,6 +30,7 @@ namespace Zork
             World = world;
             LocationName = startingLocation;
         }
+
 
         public bool Move(Directions direction)
         {

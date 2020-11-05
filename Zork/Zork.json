@@ -78,5 +78,7 @@
 		}
 	}
   ]
- }
+ },
+ "WelcomeMessage": "Welcome to Zork",
+ "ExitMessage": "Thank you for playing!"
 }

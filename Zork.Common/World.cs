@@ -3,12 +3,14 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Zork
 {
-    public 
-        class World
+    public class World : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public HashSet<Room> Rooms { get; set; }
 
         [JsonIgnore]
@@ -28,8 +30,9 @@ namespace Zork
         }
 
         [JsonProperty]
-        private string StartingLocation { get; set; }
+        public string StartingLocation { get; set; }
 
         private Dictionary<string, Room> mRoomsByName;
+
     }
 }

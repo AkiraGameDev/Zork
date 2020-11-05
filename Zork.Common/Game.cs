@@ -1,13 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.ComponentModel;
 
 namespace Zork
 {
     public class Game
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public World World { get; private set; }
-        
+
+        public string WelcomeMessage { get; set; }
+
+        public string ExitMessage { get; set; }
+
         [JsonIgnore]
         public Player Player { get; private set; }
 
@@ -22,6 +29,7 @@ namespace Zork
 
         public void Run()
         {
+            Console.WriteLine(WelcomeMessage);
             IsRunning = true;
             Room previousRoom = null;
             while(IsRunning)
@@ -33,7 +41,7 @@ namespace Zork
                     previousRoom = Player.Location;
                 }
 
-                Console.Write("\n> ");
+                Console.Write("> ");
                 Commands command = ToCommand(Console.ReadLine().Trim());
 
                 switch(command)
@@ -63,6 +71,7 @@ namespace Zork
                         break;
                 }
             }
+            Console.WriteLine(ExitMessage);
         }
 
         public static Game Load(string filename)
