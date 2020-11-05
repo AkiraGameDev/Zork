@@ -33,6 +33,5 @@ namespace Zork
         public string StartingLocation { get; set; }
 
         private Dictionary<string, Room> mRoomsByName;
-
     }
 }

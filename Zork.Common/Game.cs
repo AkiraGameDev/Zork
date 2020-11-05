@@ -5,11 +5,11 @@ using System.ComponentModel;
 
 namespace Zork
 {
-    public class Game
+    public class Game : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public World World { get; private set; }
+        public World World { get; set; }
 
         public string WelcomeMessage { get; set; }
 

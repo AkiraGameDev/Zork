@@ -15,11 +15,6 @@ namespace ZorkGUI.Forms
             InitializeComponent();
         }
 
-        private void okButton_Click(object sender, System.EventArgs e)
-        {
-
-        }
-
         private void roomNameTextBox_TextChanged(object sender, System.EventArgs e)
         {
             okButton.Enabled = !string.IsNullOrEmpty(RoomName);

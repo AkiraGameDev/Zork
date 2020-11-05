@@ -16,6 +16,7 @@ namespace ZorkGUI.ViewModels
 
         public BindingList<Room> Rooms { get; set; }
 
+
         public Game Game
         {
             set
@@ -28,6 +29,11 @@ namespace ZorkGUI.ViewModels
                         Rooms = new BindingList<Room>(mGame.World.Rooms.ToList());
                     }
                 }
+            }
+
+            get
+            {
+                return mGame;
             }
         }
         private Game mGame;
@@ -50,6 +56,11 @@ namespace ZorkGUI.ViewModels
             {
                 serializer.Serialize(jsonWriter, mGame);
             }
+        }
+
+        public void RemoveRoom(Room roomToRemove)
+        {
+            Rooms.Remove(roomToRemove);
         }
     }
 }
