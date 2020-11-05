@@ -148,6 +148,7 @@
             this.changeWorldSettingsToolStripMenuItem.Name = "changeWorldSettingsToolStripMenuItem";
             this.changeWorldSettingsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.changeWorldSettingsToolStripMenuItem.Text = "Change World Settings";
+            this.changeWorldSettingsToolStripMenuItem.Click += new System.EventHandler(this.changeWorldSettingsToolStripMenuItem_Click);
             // 
             // flowLayoutPanel1
             // 

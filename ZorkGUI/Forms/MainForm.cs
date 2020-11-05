@@ -107,5 +107,17 @@ namespace ZorkGUI
                 ViewModel.SaveWorld();
             }
         }
+
+        private void changeWorldSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (WorldSettingsForm worldSettingsForm = new WorldSettingsForm())
+            {
+                if (worldSettingsForm.ShowDialog() == DialogResult.OK)
+                {
+                    ViewModel.Game.WelcomeMessage = worldSettingsForm.WelcomeMessage;
+                    ViewModel.Game.ExitMessage = worldSettingsForm.ExitMessage;
+                }
+            }
+        }
     }
 }
