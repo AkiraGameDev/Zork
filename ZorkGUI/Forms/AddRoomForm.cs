@@ -20,9 +20,9 @@ namespace ZorkGUI.Forms
             okButton.Enabled = !string.IsNullOrEmpty(RoomName);
         }
 
-        private void okButton_Click(object sender, System.EventArgs e)
+        private void roomNameTextBox_Enter(object sender, System.EventArgs e)
         {
-
+            okButton.Enabled = !string.IsNullOrEmpty(RoomName);
         }
     }
 }

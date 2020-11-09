@@ -32,10 +32,10 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.welcomeMessageTextBox = new System.Windows.Forms.TextBox();
-            this.gameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.welcomeMessageLabel = new System.Windows.Forms.Label();
             this.exitMessageTextBox = new System.Windows.Forms.TextBox();
             this.exitMessageLabel = new System.Windows.Forms.Label();
+            this.gameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gameViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,10 +68,6 @@
             this.welcomeMessageTextBox.TabIndex = 5;
             this.welcomeMessageTextBox.TextChanged += new System.EventHandler(this.welcomeMessageTextBox_TextChanged);
             // 
-            // gameViewModelBindingSource
-            // 
-            this.gameViewModelBindingSource.DataSource = typeof(ZorkGUI.ViewModels.GameViewModel);
-            // 
             // welcomeMessageLabel
             // 
             this.welcomeMessageLabel.AutoSize = true;
@@ -100,6 +96,10 @@
             this.exitMessageLabel.Size = new System.Drawing.Size(73, 13);
             this.exitMessageLabel.TabIndex = 8;
             this.exitMessageLabel.Text = "Exit Message:";
+            // 
+            // gameViewModelBindingSource
+            // 
+            this.gameViewModelBindingSource.DataSource = typeof(ZorkGUI.ViewModels.GameViewModel);
             // 
             // WorldSettingsForm
             // 

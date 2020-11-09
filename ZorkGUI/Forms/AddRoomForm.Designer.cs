@@ -41,6 +41,7 @@
             this.roomNameTextBox.Size = new System.Drawing.Size(386, 20);
             this.roomNameTextBox.TabIndex = 1;
             this.roomNameTextBox.TextChanged += new System.EventHandler(this.roomNameTextBox_TextChanged);
+            this.roomNameTextBox.Enter += new System.EventHandler(this.roomNameTextBox_Enter);
             // 
             // label2
             // 
@@ -71,7 +72,6 @@
             this.okButton.TabIndex = 2;
             this.okButton.Text = "&Ok";
             this.okButton.UseVisualStyleBackColor = true;
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // AddRoomForm
             // 

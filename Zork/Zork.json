@@ -71,6 +71,6 @@
     ],
     "StartingLocation": "West of House"
   },
-  "WelcomeMessage": "addaaaaaaaaa",
-  "ExitMessage": "aaaaaaaaaaaaaaaa"
+  "WelcomeMessage": "Howdy, howdy!",
+  "ExitMessage": "Goodbye!"
 }

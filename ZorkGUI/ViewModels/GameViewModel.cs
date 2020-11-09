@@ -38,7 +38,7 @@ namespace ZorkGUI.ViewModels
         }
         private Game mGame;
 
-        public GameViewModel(Game game = null) => Game = game;
+        public GameViewModel(Game game = null) => Game = null;
 
         public void SaveWorld()
         {

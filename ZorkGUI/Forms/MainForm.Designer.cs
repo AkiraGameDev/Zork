@@ -96,6 +96,7 @@
             this.NewGame.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.NewGame.Size = new System.Drawing.Size(220, 22);
             this.NewGame.Text = "&New Game";
+            this.NewGame.Click += new System.EventHandler(this.NewGame_Click);
             // 
             // OpenGame
             // 
@@ -254,6 +255,7 @@
             this.roomNameTextBox.Name = "roomNameTextBox";
             this.roomNameTextBox.Size = new System.Drawing.Size(384, 22);
             this.roomNameTextBox.TabIndex = 2;
+            this.roomNameTextBox.TextChanged += new System.EventHandler(this.roomNameTextBox_TextChanged);
             // 
             // label5
             // 

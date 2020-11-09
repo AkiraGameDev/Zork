@@ -21,10 +21,16 @@ namespace Zork
         [JsonIgnore]
         private bool IsRunning { get; set; }
 
+        [JsonConstructor]
         public Game(World world, Player player)
         {
             World = world;
             Player = player;
+        }
+
+        public Game(World world)
+        {
+            World = world;
         }
 
         public void Run()
