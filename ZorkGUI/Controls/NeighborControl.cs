@@ -21,7 +21,11 @@ namespace ZorkGUI.Controls
             get => _viewModel; 
             set {
                 _viewModel = value;
-                neighborComboBox.DataSource = _viewModel.Rooms;
+                if (_viewModel != null)
+                {
+                    neighborComboBox.DataSource = _viewModel.Rooms;
+                }
+                
             }
         }
 

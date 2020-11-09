@@ -106,6 +106,7 @@ namespace ZorkGUI
                         if (sameNameFound == false){
                             Room room = new Room();
                             room.Name = addRoomForm.RoomName;
+                            room.Description = "Enter Room Description";
                             ViewModel.Rooms.Add(room);
                             ViewModel.Game.World.Rooms.Add(room);
                         } else {
@@ -159,19 +160,56 @@ namespace ZorkGUI
 
         private void NewGame_Click(object sender, EventArgs e)
         {
-            IsWorldLoaded = true;
+            if(!mIsWorldLoaded)
+            {
+                IsWorldLoaded = true;
 
-            World newWorld = new World();
-            newWorld.Rooms = new HashSet<Room>();
+                Room defaultRoom = new Room();
+                defaultRoom.Name = "Enter Room Name";
+                defaultRoom.Description = "Enter Room Description";
 
-            Room defaultRoom = new Room();
-            defaultRoom.Name = "Enter Room Name";
-            defaultRoom.Description = "Enter Room Description";
-            newWorld.Rooms.Add(defaultRoom);
 
-            ViewModel.Game = new Game(newWorld);
-            ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
-            ViewModel.Game.ExitMessage = "Best of luck, traveler!";
+                World newWorld = new World();
+                newWorld.Rooms = new HashSet<Room>();
+                newWorld.Rooms.Add(defaultRoom);
+
+                ViewModel.Rooms = new BindingList<Room>();
+                ViewModel.Rooms.Add(defaultRoom);
+
+                ViewModel.Game = new Game(newWorld);
+                ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
+                ViewModel.Game.ExitMessage = "Best of luck, traveler!";
+                ViewModel.Game.World.StartingLocation = defaultRoom.Name;
+            }
+            else
+            {
+                if (MessageBox.Show("Create New World? Unsaved progress will be lost.", "New World", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Room defaultRoom = new Room();
+                    defaultRoom.Name = "Enter Room Name";
+                    defaultRoom.Description = "Enter Room Description";
+
+
+                    World newWorld = new World();
+                    newWorld.Rooms = new HashSet<Room>();
+                    newWorld.Rooms.Add(defaultRoom);
+
+                    ViewModel.Rooms = new BindingList<Room>();
+                    ViewModel.Rooms.Add(defaultRoom);
+
+                    ViewModel.Game = new Game(newWorld);
+                    ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
+                    ViewModel.Game.ExitMessage = "Best of luck, traveler!";
+                    ViewModel.Game.World.StartingLocation = defaultRoom.Name;
+                    ViewModel.FileName = null;
+
+                    roomListBox.SelectedItem = ViewModel.Rooms.FirstOrDefault();
+                    if (ViewModel.Rooms.Count <= 0)
+                    {
+                        deleteRoomButton.Enabled = false;
+                    }
+                }
+            }
         }
 
         private void roomNameTextBox_TextChanged(object sender, EventArgs e)
@@ -183,7 +221,6 @@ namespace ZorkGUI
                 roomListBox.DataSource = null;
                 roomListBox.DataSource = roomsBindingSource;
             }
-            
         }
     }
 }

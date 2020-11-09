@@ -23,6 +23,12 @@ namespace Zork
         [JsonIgnore]
         public Dictionary<Directions, Room> Neighbors { get; private set; }
 
+        public Room()
+        {
+            Neighbors = new Dictionary<Directions, Room>();
+            NeighborNames = new Dictionary<Directions, string>();
+        }
+
         public static bool operator ==(Room lhs, Room rhs)
         {
             if(ReferenceEquals(lhs,rhs))
@@ -40,7 +46,7 @@ namespace Zork
 
         public static bool operator !=(Room lhs, Room rhs) => !(lhs == rhs);
 
-        public override bool Equals(object obj) => obj is Room room ? this == room : false;
+        //public override bool Equals(object obj) => obj is Room room ? this == room : false;
 
         public bool Equals(Room other) => this == other;
 
