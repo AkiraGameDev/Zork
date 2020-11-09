@@ -23,7 +23,7 @@ namespace ZorkGUI.Controls
                 _viewModel = value;
                 if (_viewModel != null)
                 {
-                    neighborComboBox.DataSource = _viewModel.Rooms;
+                        neighborComboBox.DataSource = _viewModel.Rooms;
                 }
                 
             }
