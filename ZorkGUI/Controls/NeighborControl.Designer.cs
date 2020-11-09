@@ -31,6 +31,7 @@
             // 
             // neighborComboBox
             // 
+            this.neighborComboBox.DisplayMember = "Name";
             this.neighborComboBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.neighborComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.neighborComboBox.FormattingEnabled = true;
