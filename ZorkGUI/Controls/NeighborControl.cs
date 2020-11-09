@@ -8,27 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zork;
+using ZorkGUI.ViewModels;
 
 namespace ZorkGUI.Controls
 {
     public partial class NeighborControl : UserControl
     {
-        public Room room {
-            get => _room;
+
+        public static readonly Room NoNeighbor = new Room { Name = "<None>" };
+
+        public GameViewModel ViewModel {
+            get => _viewModel; 
             set {
-                if(_room != value) {
-                    _room = value;
-
-                    if(_room != null) {
-                        List<Room> rooms = new List<Room>();
-                    } else {
-                        
-                    }
-                }
-
-                neighborTextBox.Text = _direction.ToString();
+                _viewModel = value;
+                neighborComboBox.DataSource = _viewModel.Rooms;
             }
         }
+
+        public Room Room { get; set; }
 
         public Directions Direction {
             get => _direction;
@@ -38,18 +35,20 @@ namespace ZorkGUI.Controls
             }
         }
 
-        public Room Neighbor { 
+        public Room Neighbor {
             get => (Room)neighborComboBox.SelectedItem;
-            set => neighborComboBox.SelectedItem = value; 
+            set => neighborComboBox.SelectedItem = value;
         }
 
         private Directions _direction;
-        private Room _room;
-
+        private GameViewModel _viewModel;
         public static readonly Room noRoom = new Room() { Name = "None" };
 
         public NeighborControl() {
             InitializeComponent();
+
+            Direction = _direction;
+            neighborComboBox.DataSource = Array.Empty<Room>();
         }
     }
 }

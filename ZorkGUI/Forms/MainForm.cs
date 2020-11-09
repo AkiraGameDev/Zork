@@ -24,7 +24,7 @@ namespace ZorkGUI
             IsWorldLoaded = false;
         }
 
-        private GameViewModel ViewModel
+        public GameViewModel ViewModel
         {
             get => mViewModel;
             set
@@ -33,6 +33,11 @@ namespace ZorkGUI
                 {
                     mViewModel = value;
                     gameViewModelBindingSource.DataSource = mViewModel;
+
+                    northNeighborControl.ViewModel = mViewModel;
+                    southNeighborControl.ViewModel = mViewModel;
+                    eastNeighborControl.ViewModel = mViewModel;
+                    westNeighborControl.ViewModel = mViewModel;
                 }
             }
         }

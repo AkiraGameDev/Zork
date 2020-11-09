@@ -21,7 +21,7 @@ namespace Zork
         private Dictionary<Directions, string> NeighborNames { get; set; }
 
         [JsonIgnore]
-        public IReadOnlyDictionary<Directions, Room> Neighbors { get; private set; }
+        public Dictionary<Directions, Room> Neighbors { get; private set; }
 
         public static bool operator ==(Room lhs, Room rhs)
         {

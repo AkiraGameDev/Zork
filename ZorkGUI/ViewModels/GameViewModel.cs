@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -38,7 +39,9 @@ namespace ZorkGUI.ViewModels
         }
         private Game mGame;
 
-        public GameViewModel(Game game = null) => Game = null;
+        public GameViewModel(Game game = null) {
+            Game = game;
+        }
 
         public void SaveWorld()
         {
