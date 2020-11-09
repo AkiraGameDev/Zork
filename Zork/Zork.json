@@ -67,6 +67,11 @@
           "West": "Forest 2",
           "South": "Forest 3"
         }
+      },
+      {
+        "Name": "Jest of House",
+        "Description": "this is a test room",
+        "Neighbors": {}
       }
     ],
     "StartingLocation": "West of House"

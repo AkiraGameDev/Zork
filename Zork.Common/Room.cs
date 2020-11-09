@@ -3,10 +3,11 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Newtonsoft.Json.Linq;
 
 namespace Zork
 {
-    public class Room : INotifyPropertyChanged
+    public class Room : INotifyPropertyChanged, IEquatable<Room>
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,7 +35,7 @@ namespace Zork
                 return false;
             }
 
-            return lhs.Name == rhs.Name;
+            return string.Compare(lhs.Name, rhs.Name, ignoreCase: true) == 0;
         }
 
         public static bool operator !=(Room lhs, Room rhs) => !(lhs == rhs);

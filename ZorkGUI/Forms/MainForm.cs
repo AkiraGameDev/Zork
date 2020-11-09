@@ -47,6 +47,7 @@ namespace ZorkGUI
                 MainGroupBox.Enabled = mIsWorldLoaded;
                 SaveGame.Enabled = mIsWorldLoaded;
                 SaveGameAs.Enabled = mIsWorldLoaded;
+                changeWorldSettingsToolStripMenuItem.Enabled = mIsWorldLoaded;
             }
         }
         private bool mIsWorldLoaded;
@@ -87,13 +88,25 @@ namespace ZorkGUI
             {
                 if(addRoomForm.ShowDialog() == DialogResult.OK)
                 {
-                    Room room = new Room();
-                    room.Name = addRoomForm.RoomName;
-                    ViewModel.Rooms.Add(room);
-                    ViewModel.Game.World.Rooms.Add(room);
-
+                    bool sameNameFound = false;
                     if (ViewModel.Rooms.Count >= 0)
                     {
+                        foreach(Room i in ViewModel.Rooms) {
+                            if (i.Name.Equals(addRoomForm.RoomName, StringComparison.InvariantCultureIgnoreCase)) {
+                                sameNameFound = true;
+                                break;
+                            }
+                        }
+
+                        if (sameNameFound == false){
+                            Room room = new Room();
+                            room.Name = addRoomForm.RoomName;
+                            ViewModel.Rooms.Add(room);
+                            ViewModel.Game.World.Rooms.Add(room);
+                        } else {
+                            MessageBox.Show($"\"{addRoomForm.RoomName}\" already exists!");
+                        }
+
                         deleteRoomButton.Enabled = true;
                     }
                 }
