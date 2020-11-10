@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zork;
+using ZorkGUI.Controls;
 using ZorkGUI.Forms;
 using ZorkGUI.ViewModels;
 
@@ -22,6 +23,8 @@ namespace ZorkGUI
             InitializeComponent();
             ViewModel = new GameViewModel();
             IsWorldLoaded = false;
+
+            mNeighborControls.AddRange(new NeighborControl[] { northNeighborControl, southNeighborControl, eastNeighborControl, westNeighborControl });
         }
 
         public GameViewModel ViewModel
@@ -33,12 +36,13 @@ namespace ZorkGUI
                 {
                     mViewModel = value;
                     gameViewModelBindingSource.DataSource = mViewModel;
-
-                    northNeighborControl.ViewModel = mViewModel;
-                    southNeighborControl.ViewModel = mViewModel;
-                    eastNeighborControl.ViewModel = mViewModel;
-                    westNeighborControl.ViewModel = mViewModel;
                 }
+            }
+        }
+
+        private void RefreshViewModel() {
+            foreach (var neighborControl in mNeighborControls) {
+                neighborControl.RefreshNeighbors(mViewModel.Rooms);
             }
         }
 
@@ -59,6 +63,14 @@ namespace ZorkGUI
         private void roomListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             deleteRoomButton.Enabled = roomListBox.SelectedItem != null;
+            RefreshSelection();            
+        }
+
+        private void RefreshSelection() {
+            Room selectedRoom = (Room)roomListBox.SelectedItem;
+            foreach (var neighborControl in mNeighborControls) {
+                neighborControl.Room = selectedRoom;
+            }
         }
 
         private void DeleteRoomButton_Click(object sender, EventArgs e)
@@ -83,6 +95,8 @@ namespace ZorkGUI
                 ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
                 ViewModel.FileName = openFileDialog.FileName;
                 IsWorldLoaded = true;
+                RefreshViewModel();
+                RefreshSelection();
             }
         }
 
@@ -179,6 +193,7 @@ namespace ZorkGUI
                 ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
                 ViewModel.Game.ExitMessage = "Best of luck, traveler!";
                 ViewModel.Game.World.StartingLocation = defaultRoom.Name;
+                RefreshViewModel();
             }
             else
             {
@@ -213,5 +228,6 @@ namespace ZorkGUI
 
         private GameViewModel mViewModel;
         private bool mIsWorldLoaded;
+        private List<NeighborControl> mNeighborControls = new List<NeighborControl>();
     }
 }

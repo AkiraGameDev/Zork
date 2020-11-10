@@ -1,36 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zork;
-using ZorkGUI.ViewModels;
-using System.Runtime.CompilerServices;
 
 namespace ZorkGUI.Controls
 {
     public partial class NeighborControl : UserControl
     {
+        public static readonly Room NoNeighbor = new Room { Name = "<None>" };
 
-        //public static readonly Room NoNeighbor = new Room { Name = "<None>" };
-
-        public GameViewModel ViewModel {
-            get => _viewModel; 
-            set {
-                _viewModel = value;
-                if (_viewModel != null)
-                {
-                        neighborComboBox.DataSource = _viewModel.Rooms;
-                }
-                
-            }
+        public void RefreshNeighbors(IEnumerable<Room> rooms) {
+            List<Room> neighbors = rooms != null ? new List<Room>(rooms) : new List<Room>();
+            neighbors.Insert(0, NoNeighbor);
+            neighborComboBox.DataSource = neighbors;
         }
 
-        public Room Room { get; set; }
+        public Room Room {
+            get => _room;
+            set {
+                _room = value;
+                if (_room != null) {
+                    if (_room.Neighbors.TryGetValue(Direction, out Room neighbor)) {
+                        neighborComboBox.SelectedItem = neighbor;
+                    } else {
+                        neighborComboBox.SelectedItem = NoNeighbor;
+                    }
+                }
+            }
+        }
 
         public Directions Direction {
             get => _direction;
@@ -58,7 +55,6 @@ namespace ZorkGUI.Controls
         }
 
         private Directions _direction;
-        private GameViewModel _viewModel;
-        public static readonly Room noRoom = new Room() { Name = "None" };
+        private Room _room;
     }
 }
