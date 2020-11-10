@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Zork;
 using ZorkGUI.ViewModels;
+using System.Runtime.CompilerServices;
 
 namespace ZorkGUI.Controls
 {
     public partial class NeighborControl : UserControl
     {
 
-        public static readonly Room NoNeighbor = new Room { Name = "<None>" };
+        //public static readonly Room NoNeighbor = new Room { Name = "<None>" };
 
         public GameViewModel ViewModel {
             get => _viewModel; 
@@ -44,9 +45,6 @@ namespace ZorkGUI.Controls
             set => neighborComboBox.SelectedItem = value;
         }
 
-        private Directions _direction;
-        private GameViewModel _viewModel;
-        public static readonly Room noRoom = new Room() { Name = "None" };
 
         public NeighborControl() {
             InitializeComponent();
@@ -54,5 +52,13 @@ namespace ZorkGUI.Controls
             Direction = _direction;
             neighborComboBox.DataSource = Array.Empty<Room>();
         }
+
+        private void neighborComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            //change current room's neighbor to selected new neighbor. if none set to null
+        }
+
+        private Directions _direction;
+        private GameViewModel _viewModel;
+        public static readonly Room noRoom = new Room() { Name = "None" };
     }
 }

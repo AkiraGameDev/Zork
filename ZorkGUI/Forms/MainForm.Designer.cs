@@ -337,7 +337,6 @@
             this.roomNameTextBox.Name = "roomNameTextBox";
             this.roomNameTextBox.Size = new System.Drawing.Size(701, 33);
             this.roomNameTextBox.TabIndex = 2;
-            this.roomNameTextBox.TextChanged += new System.EventHandler(this.roomNameTextBox_TextChanged);
             // 
             // label5
             // 

@@ -42,6 +42,7 @@
             this.neighborComboBox.Size = new System.Drawing.Size(165, 21);
             this.neighborComboBox.TabIndex = 1;
             this.neighborComboBox.ValueMember = "Description";
+            this.neighborComboBox.SelectedIndexChanged += new System.EventHandler(this.neighborComboBox_SelectedIndexChanged);
             // 
             // neighborTextBox
             // 

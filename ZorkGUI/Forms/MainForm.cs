@@ -41,11 +41,10 @@ namespace ZorkGUI
                 }
             }
         }
-        private GameViewModel mViewModel;
 
         private bool IsWorldLoaded
         {
-            get => IsWorldLoaded;
+            get => mIsWorldLoaded;
             set
             {
                 mIsWorldLoaded = value;
@@ -55,7 +54,7 @@ namespace ZorkGUI
                 changeWorldSettingsToolStripMenuItem.Enabled = mIsWorldLoaded;
             }
         }
-        private bool mIsWorldLoaded;
+
 
         private void roomListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -212,15 +211,7 @@ namespace ZorkGUI
             }
         }
 
-        private void roomNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            int selectedIndex = roomListBox.SelectedIndex;
-
-            if(roomListBox.SelectedIndex >= 0)
-            {
-                roomListBox.DataSource = null;
-                roomListBox.DataSource = roomsBindingSource;
-            }
-        }
+        private GameViewModel mViewModel;
+        private bool mIsWorldLoaded;
     }
 }
