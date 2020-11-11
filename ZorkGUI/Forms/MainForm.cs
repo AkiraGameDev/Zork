@@ -21,41 +21,50 @@ namespace ZorkGUI
         public MainForm()
         {
             InitializeComponent();
-            ViewModel = new GameViewModel();
-            IsWorldLoaded = false;
 
-            mNeighborControls.AddRange(new NeighborControl[] { northNeighborControl, southNeighborControl, eastNeighborControl, westNeighborControl });
+            ViewModel = new GameViewModel();
+            _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;
+            
+
+            IsGameLoaded = false;
+
+            _NeighborControls.AddRange(new NeighborControl[] { northNeighborControl, southNeighborControl, eastNeighborControl, westNeighborControl });
+        }
+
+        private void _ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            ViewModel.IsModified = true;
         }
 
         public GameViewModel ViewModel
         {
-            get => mViewModel;
+            get => _ViewModel;
             set
             {
-                if(mViewModel != value)
+                if(_ViewModel != value)
                 {
-                    mViewModel = value;
-                    gameViewModelBindingSource.DataSource = mViewModel;
+                    _ViewModel = value;
+                    gameViewModelBindingSource.DataSource = _ViewModel;
                 }
             }
         }
 
         private void RefreshViewModel() {
-            foreach (var neighborControl in mNeighborControls) {
-                neighborControl.RefreshNeighbors(mViewModel.Rooms);
+            foreach (var neighborControl in _NeighborControls) {
+                neighborControl.RefreshNeighbors(_ViewModel.Rooms);
             }
         }
 
-        private bool IsWorldLoaded
+        private bool IsGameLoaded
         {
-            get => mIsWorldLoaded;
+            get => _IsWorldLoaded;
             set
             {
-                mIsWorldLoaded = value;
-                MainGroupBox.Enabled = mIsWorldLoaded;
-                SaveGame.Enabled = mIsWorldLoaded;
-                SaveGameAs.Enabled = mIsWorldLoaded;
-                changeWorldSettingsToolStripMenuItem.Enabled = mIsWorldLoaded;
+                _IsWorldLoaded = value;
+                MainGroupBox.Enabled = _IsWorldLoaded;
+                SaveGame.Enabled = _IsWorldLoaded;
+                SaveGameAs.Enabled = _IsWorldLoaded;
+                changeWorldSettingsToolStripMenuItem.Enabled = _IsWorldLoaded;
             }
         }
 
@@ -63,13 +72,14 @@ namespace ZorkGUI
         private void roomListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             deleteRoomButton.Enabled = roomListBox.SelectedItem != null;
-            RefreshSelection();            
+            RefreshSelection();           
         }
 
         private void RefreshSelection() {
             Room selectedRoom = (Room)roomListBox.SelectedItem;
-            foreach (var neighborControl in mNeighborControls) {
+            foreach (var neighborControl in _NeighborControls) {
                 neighborControl.Room = selectedRoom;
+                neighborControl.RefreshNeighbors(_ViewModel.Rooms);
             }
         }
 
@@ -94,7 +104,7 @@ namespace ZorkGUI
             {
                 ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
                 ViewModel.FileName = openFileDialog.FileName;
-                IsWorldLoaded = true;
+                IsGameLoaded = true;
                 RefreshViewModel();
                 RefreshSelection();
             }
@@ -173,49 +183,19 @@ namespace ZorkGUI
 
         private void NewGame_Click(object sender, EventArgs e)
         {
-            if(!mIsWorldLoaded)
+            if(!ViewModel.IsModified)
             {
-                IsWorldLoaded = true;
-
-                Room defaultRoom = new Room();
-                defaultRoom.Name = "Enter Room Name";
-                defaultRoom.Description = "Enter Room Description";
-
-
-                World newWorld = new World();
-                newWorld.Rooms = new HashSet<Room>();
-                newWorld.Rooms.Add(defaultRoom);
-
-                ViewModel.Rooms = new BindingList<Room>();
-                ViewModel.Rooms.Add(defaultRoom);
-
-                ViewModel.Game = new Game(newWorld);
-                ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
-                ViewModel.Game.ExitMessage = "Best of luck, traveler!";
-                ViewModel.Game.World.StartingLocation = defaultRoom.Name;
+                IsGameLoaded = true;
+                InitializeDefaultGame();
                 RefreshViewModel();
             }
             else
             {
                 if (MessageBox.Show("Create New World? Unsaved progress will be lost.", "New World", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Room defaultRoom = new Room();
-                    defaultRoom.Name = "Enter Room Name";
-                    defaultRoom.Description = "Enter Room Description";
-
-
-                    World newWorld = new World();
-                    newWorld.Rooms = new HashSet<Room>();
-                    newWorld.Rooms.Add(defaultRoom);
-
-                    ViewModel.Rooms = new BindingList<Room>();
-                    ViewModel.Rooms.Add(defaultRoom);
-
-                    ViewModel.Game = new Game(newWorld);
-                    ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
-                    ViewModel.Game.ExitMessage = "Best of luck, traveler!";
-                    ViewModel.Game.World.StartingLocation = defaultRoom.Name;
+                    InitializeDefaultGame();
                     ViewModel.FileName = null;
+                    RefreshViewModel();
 
                     roomListBox.SelectedItem = ViewModel.Rooms.FirstOrDefault();
                     if (ViewModel.Rooms.Count <= 0)
@@ -226,8 +206,28 @@ namespace ZorkGUI
             }
         }
 
-        private GameViewModel mViewModel;
-        private bool mIsWorldLoaded;
-        private List<NeighborControl> mNeighborControls = new List<NeighborControl>();
+        private void InitializeDefaultGame()
+        {
+            Room defaultRoom = new Room();
+            defaultRoom.Name = "Enter Room Name";
+            defaultRoom.Description = "Enter Room Description";
+
+
+            World newWorld = new World();
+            newWorld.Rooms = new HashSet<Room>();
+            newWorld.Rooms.Add(defaultRoom);
+
+            ViewModel.Rooms = new BindingList<Room>();
+            ViewModel.Rooms.Add(defaultRoom);
+
+            ViewModel.Game = new Game(newWorld);
+            ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
+            ViewModel.Game.ExitMessage = "Best of luck, traveler!";
+            ViewModel.Game.World.StartingLocation = defaultRoom.Name;
+        }
+
+        private GameViewModel _ViewModel;
+        private bool _IsWorldLoaded;
+        private List<NeighborControl> _NeighborControls = new List<NeighborControl>();
     }
 }

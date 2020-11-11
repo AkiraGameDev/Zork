@@ -36,19 +36,48 @@ namespace ZorkGUI.ViewModels
 
 
         public Game Game {
-            get => mGame;
+            get => _Game;
             set {
-                if (mGame != value) {
-                    mGame = value;
-                    if (mGame != null) {
-                        Rooms = new BindingList<Room>(mGame.World.Rooms.ToList());
+                if (_Game != value) 
+                {
+                    if(_Game != null)
+                    {
+                        _Game.PropertyChanged -= Game_PropertyChanged;
+                        _Game.World.PropertyChanged -= Game_PropertyChanged;
+                        foreach (Room room in _Game.World.Rooms)
+                        {
+                            room.PropertyChanged -= Game_PropertyChanged;
+                        }
+                    }
+
+                    _Game = value;
+
+                    if (_Game != null) 
+                    {
+                        Rooms = new BindingList<Room>(_Game.World.Rooms.ToList());
                         OnPropertyChanged();
+                        _Game.PropertyChanged += Game_PropertyChanged;
+                        _Game.World.PropertyChanged += Game_PropertyChanged;
+                        foreach (Room room in _Game.World.Rooms)
+                        {
+                            room.PropertyChanged += Game_PropertyChanged;
+                        }
+                    }
+                    else
+                    {
+                        Rooms = new BindingList<Room>(Array.Empty<Room>());
                     }
                 }
             }
         }
 
+        public bool IsModified { get; set; }
 
+        private void Game_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            IsModified = true;
+            PropertyChanged?.Invoke(this, e);
+        }
 
         public GameViewModel(Game game = null) {
             Game = game;
@@ -68,7 +97,7 @@ namespace ZorkGUI.ViewModels
             };
             using (StreamWriter streamWriter = new StreamWriter(FileName))
             using (JsonWriter jsonWriter = new JsonTextWriter(streamWriter)) {
-                serializer.Serialize(jsonWriter, mGame);
+                serializer.Serialize(jsonWriter, _Game);
             }
         }
 
@@ -76,7 +105,7 @@ namespace ZorkGUI.ViewModels
             Rooms.Remove(roomToRemove);
         }
 
-        private Game mGame;
+        private Game _Game;
         private string _fileName;
         private BindingList<Room> _rooms;
     }

@@ -1,0 +1,19 @@
+{
+  "World": {
+    "Rooms": [
+      {
+        "Name": "Enter Room Named",
+        "Description": "Enter Room Description",
+        "Neighbors": {
+          "North": "Enter Room Named",
+          "East": "Enter Room Named",
+          "West": "Enter Room Named",
+          "South": "Enter Room Named"
+        }
+      }
+    ],
+    "StartingLocation": "Enter Room Name"
+  },
+  "WelcomeMessage": "Welcome to Zork!",
+  "ExitMessage": "Best of luck, traveler!"
+}

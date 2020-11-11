@@ -266,7 +266,7 @@
             // 
             this.southNeighborControl.Direction = Zork.Directions.South;
             this.southNeighborControl.Location = new System.Drawing.Point(112, 196);
-            this.southNeighborControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.southNeighborControl.Margin = new System.Windows.Forms.Padding(4);
             this.southNeighborControl.Name = "southNeighborControl";
             this.southNeighborControl.Neighbor = null;
             this.southNeighborControl.Room = null;
@@ -277,7 +277,7 @@
             // 
             this.eastNeighborControl.Direction = Zork.Directions.East;
             this.eastNeighborControl.Location = new System.Drawing.Point(202, 114);
-            this.eastNeighborControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.eastNeighborControl.Margin = new System.Windows.Forms.Padding(4);
             this.eastNeighborControl.Name = "eastNeighborControl";
             this.eastNeighborControl.Neighbor = null;
             this.eastNeighborControl.Room = null;
@@ -288,7 +288,7 @@
             // 
             this.westNeighborControl.Direction = Zork.Directions.West;
             this.westNeighborControl.Location = new System.Drawing.Point(7, 114);
-            this.westNeighborControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.westNeighborControl.Margin = new System.Windows.Forms.Padding(4);
             this.westNeighborControl.Name = "westNeighborControl";
             this.westNeighborControl.Neighbor = null;
             this.westNeighborControl.Room = null;
@@ -299,7 +299,7 @@
             // 
             this.northNeighborControl.Direction = Zork.Directions.North;
             this.northNeighborControl.Location = new System.Drawing.Point(105, 21);
-            this.northNeighborControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.northNeighborControl.Margin = new System.Windows.Forms.Padding(4);
             this.northNeighborControl.Name = "northNeighborControl";
             this.northNeighborControl.Neighbor = null;
             this.northNeighborControl.Room = null;
@@ -336,7 +336,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 5);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 16);
             this.label2.TabIndex = 1;

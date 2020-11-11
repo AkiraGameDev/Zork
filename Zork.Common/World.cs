@@ -15,14 +15,14 @@ namespace Zork
         public HashSet<Room> Rooms { get; set; }
 
         [JsonIgnore]
-        public ReadOnlyDictionary<string, Room> RoomsByName => new ReadOnlyDictionary<string, Room>(mRoomsByName);
+        public ReadOnlyDictionary<string, Room> RoomsByName => new ReadOnlyDictionary<string, Room>(_RoomsByName);
 
         public Player SpawnPlayer() => new Player(this, StartingLocation);
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            mRoomsByName = Rooms.ToDictionary(room => room.Name, room => room);
+            _RoomsByName = Rooms.ToDictionary(room => room.Name, room => room);
 
             foreach (Room room in Rooms)
             {
@@ -33,6 +33,6 @@ namespace Zork
         [JsonProperty]
         public string StartingLocation { get; set; }
 
-        private Dictionary<string, Room> mRoomsByName;
+        private Dictionary<string, Room> _RoomsByName;
     }
 }
