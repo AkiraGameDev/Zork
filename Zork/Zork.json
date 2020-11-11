@@ -5,10 +5,10 @@
         "Name": "West of House",
         "Description": "This is an open field west of a white house, with a boarded front door.",
         "Neighbors": {
-          "North": "South of House",
-          "South": "Clearing",
-          "West": "Clearing",
-          "East": "Clearing"
+          "North": "North of House",
+          "South": "Forest 1",
+          "West": "South of House",
+          "East": "Behind House"
         }
       },
       {
@@ -68,9 +68,19 @@
           "West": "Forest 2",
           "South": "Forest 3"
         }
+      },
+      {
+        "Name": "dsdasdas",
+        "Description": "Enter Room Description",
+        "Neighbors": {
+          "West": "West of House",
+          "North": "West of House",
+          "East": "North of House",
+          "South": "West of House"
+        }
       }
     ],
-    "StartingLocation": "West of House"
+    "StartingLocation": "dsdasdas"
   },
   "WelcomeMessage": "Welcome to Zork!",
   "ExitMessage": "Best of luck, traveler!"

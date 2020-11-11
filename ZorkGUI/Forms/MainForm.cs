@@ -22,13 +22,13 @@ namespace ZorkGUI
         {
             InitializeComponent();
 
+            _NeighborControls.AddRange(new NeighborControl[] { northNeighborControl, southNeighborControl, eastNeighborControl, westNeighborControl });
+
             ViewModel = new GameViewModel();
             _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;
             
 
             IsGameLoaded = false;
-
-            _NeighborControls.AddRange(new NeighborControl[] { northNeighborControl, southNeighborControl, eastNeighborControl, westNeighborControl });
         }
 
         private void _ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -45,6 +45,10 @@ namespace ZorkGUI
                 {
                     _ViewModel = value;
                     gameViewModelBindingSource.DataSource = _ViewModel;
+                    foreach (NeighborControl neighborControl in _NeighborControls)
+                    {
+                        neighborControl.ViewModel = _ViewModel;
+                    }
                 }
             }
         }
@@ -65,6 +69,7 @@ namespace ZorkGUI
                 SaveGame.Enabled = _IsWorldLoaded;
                 SaveGameAs.Enabled = _IsWorldLoaded;
                 changeWorldSettingsToolStripMenuItem.Enabled = _IsWorldLoaded;
+                launchGameToolStripMenuItem.Enabled = _IsWorldLoaded;
             }
         }
 
@@ -77,7 +82,8 @@ namespace ZorkGUI
 
         private void RefreshSelection() {
             Room selectedRoom = (Room)roomListBox.SelectedItem;
-            foreach (var neighborControl in _NeighborControls) {
+            foreach (var neighborControl in _NeighborControls) 
+            {
                 neighborControl.Room = selectedRoom;
                 neighborControl.RefreshNeighbors(_ViewModel.Rooms);
             }
@@ -119,20 +125,25 @@ namespace ZorkGUI
                     bool sameNameFound = false;
                     if (ViewModel.Rooms.Count >= 0)
                     {
-                        foreach(Room i in ViewModel.Rooms) {
+                        foreach(Room i in ViewModel.Rooms) 
+                        {
                             if (i.Name.Equals(addRoomForm.RoomName, StringComparison.InvariantCultureIgnoreCase)) {
                                 sameNameFound = true;
                                 break;
                             }
                         }
 
-                        if (sameNameFound == false){
+                        if (sameNameFound == false)
+                        {
                             Room room = new Room();
                             room.Name = addRoomForm.RoomName;
                             room.Description = "Enter Room Description";
                             ViewModel.Rooms.Add(room);
                             ViewModel.Game.World.Rooms.Add(room);
-                        } else {
+                            roomListBox.SelectedItem = room;
+                        } 
+                        else 
+                        {
                             MessageBox.Show($"\"{addRoomForm.RoomName}\" already exists!");
                         }
 
@@ -172,11 +183,15 @@ namespace ZorkGUI
             {
                 worldSettingsForm.WelcomeMessage = ViewModel.Game.WelcomeMessage;
                 worldSettingsForm.ExitMessage = ViewModel.Game.ExitMessage;
+                worldSettingsForm.Rooms = new List<Room>(_ViewModel.Rooms);
+                worldSettingsForm.StartingLocation = ViewModel.Game.World.StartingLocation;
+                worldSettingsForm.RefreshStartingRoomList();
 
                 if (worldSettingsForm.ShowDialog() == DialogResult.OK)
                 {
                     ViewModel.Game.WelcomeMessage = worldSettingsForm.WelcomeMessage;
                     ViewModel.Game.ExitMessage = worldSettingsForm.ExitMessage;
+                    ViewModel.Game.World.StartingLocation = worldSettingsForm.StartingLocation;
                 }
             }
         }

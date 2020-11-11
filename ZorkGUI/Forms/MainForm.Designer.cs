@@ -33,12 +33,14 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewGame = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenGame = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.SaveGame = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveGameAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeWorldSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -61,8 +63,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.launchGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -117,6 +117,11 @@
             this.OpenGame.Text = "&Open Game";
             this.OpenGame.Click += new System.EventHandler(this.OpenGame_Click);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(217, 6);
+            // 
             // SaveGame
             // 
             this.SaveGame.Name = "SaveGame";
@@ -161,6 +166,14 @@
             this.changeWorldSettingsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.changeWorldSettingsToolStripMenuItem.Text = "Change World Settings";
             this.changeWorldSettingsToolStripMenuItem.Click += new System.EventHandler(this.changeWorldSettingsToolStripMenuItem_Click);
+            // 
+            // launchGameToolStripMenuItem
+            // 
+            this.launchGameToolStripMenuItem.Name = "launchGameToolStripMenuItem";
+            this.launchGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.launchGameToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.launchGameToolStripMenuItem.Text = "Launch Game";
+            this.launchGameToolStripMenuItem.Click += new System.EventHandler(this.launchGameToolStripMenuItem_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -379,18 +392,6 @@
             // 
             this.saveFileDialog.Filter = "World Files (*.json)|.json";
             this.saveFileDialog.Title = "Save World File";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(217, 6);
-            // 
-            // launchGameToolStripMenuItem
-            // 
-            this.launchGameToolStripMenuItem.Name = "launchGameToolStripMenuItem";
-            this.launchGameToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
-            this.launchGameToolStripMenuItem.Text = "Launch Game";
-            this.launchGameToolStripMenuItem.Click += new System.EventHandler(this.launchGameToolStripMenuItem_Click);
             // 
             // MainForm
             // 

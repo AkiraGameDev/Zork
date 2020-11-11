@@ -32,17 +32,21 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.welcomeMessageTextBox = new System.Windows.Forms.TextBox();
+            this.gameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.welcomeMessageLabel = new System.Windows.Forms.Label();
             this.exitMessageTextBox = new System.Windows.Forms.TextBox();
             this.exitMessageLabel = new System.Windows.Forms.Label();
-            this.gameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.startingRoomComboBox = new System.Windows.Forms.ComboBox();
+            this.roomsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gameViewModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(321, 114);
+            this.cancelButton.Location = new System.Drawing.Point(321, 127);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(77, 23);
             this.cancelButton.TabIndex = 7;
@@ -52,7 +56,7 @@
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(225, 114);
+            this.okButton.Location = new System.Drawing.Point(238, 127);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(77, 23);
             this.okButton.TabIndex = 6;
@@ -67,6 +71,10 @@
             this.welcomeMessageTextBox.Size = new System.Drawing.Size(386, 20);
             this.welcomeMessageTextBox.TabIndex = 5;
             this.welcomeMessageTextBox.TextChanged += new System.EventHandler(this.welcomeMessageTextBox_TextChanged);
+            // 
+            // gameViewModelBindingSource
+            // 
+            this.gameViewModelBindingSource.DataSource = typeof(ZorkGUI.ViewModels.GameViewModel);
             // 
             // welcomeMessageLabel
             // 
@@ -97,15 +105,41 @@
             this.exitMessageLabel.TabIndex = 8;
             this.exitMessageLabel.Text = "Exit Message:";
             // 
-            // gameViewModelBindingSource
+            // label1
             // 
-            this.gameViewModelBindingSource.DataSource = typeof(ZorkGUI.ViewModels.GameViewModel);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 106);
+            this.label1.Margin = new System.Windows.Forms.Padding(5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Starting Room:";
+            // 
+            // startingRoomComboBox
+            // 
+            this.startingRoomComboBox.DataSource = this.roomsBindingSource;
+            this.startingRoomComboBox.DisplayMember = "Name";
+            this.startingRoomComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.startingRoomComboBox.FormattingEnabled = true;
+            this.startingRoomComboBox.Location = new System.Drawing.Point(12, 127);
+            this.startingRoomComboBox.Name = "startingRoomComboBox";
+            this.startingRoomComboBox.Size = new System.Drawing.Size(220, 21);
+            this.startingRoomComboBox.TabIndex = 11;
+            this.startingRoomComboBox.ValueMember = "Description";
+            this.startingRoomComboBox.SelectedValueChanged += new System.EventHandler(this.startingRoomComboBox_SelectedValueChanged);
+            // 
+            // roomsBindingSource
+            // 
+            this.roomsBindingSource.DataMember = "Rooms";
+            this.roomsBindingSource.DataSource = this.gameViewModelBindingSource;
             // 
             // WorldSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 150);
+            this.ClientSize = new System.Drawing.Size(410, 163);
+            this.Controls.Add(this.startingRoomComboBox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.exitMessageTextBox);
             this.Controls.Add(this.exitMessageLabel);
             this.Controls.Add(this.cancelButton);
@@ -115,6 +149,7 @@
             this.Name = "WorldSettingsForm";
             this.Text = "WorldSettings";
             ((System.ComponentModel.ISupportInitialize)(this.gameViewModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,5 +164,8 @@
         private System.Windows.Forms.TextBox exitMessageTextBox;
         private System.Windows.Forms.Label exitMessageLabel;
         private System.Windows.Forms.BindingSource gameViewModelBindingSource;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox startingRoomComboBox;
+        private System.Windows.Forms.BindingSource roomsBindingSource;
     }
 }

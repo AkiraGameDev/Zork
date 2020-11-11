@@ -13,6 +13,8 @@ namespace ZorkGUI.Controls
 
         public static readonly Room NoNeighbor = new Room { Name = "<None>" };
 
+        public GameViewModel ViewModel;
+
         public void RefreshNeighbors(IEnumerable<Room> rooms) {
             List<Room> neighbors = rooms != null ? new List<Room>(rooms) : new List<Room>();
             neighbors.Insert(0, NoNeighbor);
@@ -30,6 +32,7 @@ namespace ZorkGUI.Controls
             }
 
             neighborComboBox.DataSource = neighbors;
+            
 
             if (_room != null)
             {
@@ -95,6 +98,7 @@ namespace ZorkGUI.Controls
                 else
                 {
                     _room.NeighborNames[Direction] = neighbor.Name;
+                    _room.UpdateNeighbors(ViewModel.Game.World);
                 }
             }
         }
