@@ -9,6 +9,8 @@ using Zork;
 using ZorkGUI.Controls;
 using ZorkGUI.Forms;
 using ZorkGUI.ViewModels;
+using System.Diagnostics;
+using System.Text;
 
 namespace ZorkGUI
 {
@@ -64,7 +66,7 @@ namespace ZorkGUI
                 SaveGame.Enabled = _IsWorldLoaded;
                 SaveGameAs.Enabled = _IsWorldLoaded;
                 changeWorldSettingsToolStripMenuItem.Enabled = _IsWorldLoaded;
-                //launchGameToolStripMenuItem.Enabled = _IsWorldLoaded;
+                launchGameToolStripMenuItem.Enabled = _IsWorldLoaded;
             }
         }
 
@@ -183,6 +185,7 @@ namespace ZorkGUI
             }
             ViewModel.SaveWorld();
             ViewModel.RefreshModify();
+            
         }
 
         private void SaveGameAs_Click(object sender, EventArgs e)
@@ -192,6 +195,7 @@ namespace ZorkGUI
                 ViewModel.FileName = saveFileDialog.FileName;
                 ViewModel.SaveWorld();
                 ViewModel.RefreshModify();
+                launchGameToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -227,7 +231,6 @@ namespace ZorkGUI
                 if (MessageBox.Show("Create New World? Unsaved progress will be lost.", "New World", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     InitializeDefaultGame();
-                    ViewModel.FileName = null;
                     RefreshViewModel();
 
                     roomListBox.SelectedItem = ViewModel.Rooms.FirstOrDefault();
@@ -257,11 +260,21 @@ namespace ZorkGUI
             ViewModel.Game.WelcomeMessage = "Welcome to Zork!";
             ViewModel.Game.ExitMessage = "Best of luck, traveler!";
             ViewModel.Game.World.StartingLocation = defaultRoom.Name;
+            ViewModel.FileName = null;
+            launchGameToolStripMenuItem.Enabled = false; //set this to false as there is no file name
         }
 
         private GameViewModel _ViewModel;
         private bool _IsWorldLoaded;
         private List<NeighborControl> _NeighborControls = new List<NeighborControl>();
 
+        private void launchGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(System.IO.Directory.GetCurrentDirectory());
+            stringBuilder.Replace("ZorkGUI", "Zork");
+            stringBuilder.Append("\\netcoreapp3.1\\Zork.Console.exe");
+            Process.Start(stringBuilder.ToString(), ViewModel.FileName);        
+        }
     }
 }
