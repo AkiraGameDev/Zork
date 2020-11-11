@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
 using Zork;
 using ZorkGUI.ViewModels;
-using System.Runtime.CompilerServices;
 
 namespace ZorkGUI.Controls
 {
