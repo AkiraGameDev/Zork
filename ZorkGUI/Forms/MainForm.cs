@@ -229,5 +229,11 @@ namespace ZorkGUI
         private GameViewModel _ViewModel;
         private bool _IsWorldLoaded;
         private List<NeighborControl> _NeighborControls = new List<NeighborControl>();
+
+        private void launchGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewModel.Game = Game.Load(ViewModel.FileName);
+            ViewModel.Game.Run();
+        }
     }
 }
