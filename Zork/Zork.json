@@ -70,17 +70,16 @@
         }
       },
       {
-        "Name": "dsdasdas",
-        "Description": "Enter Room Description",
+        "Name": "Canyon",
+        "Description": "This is a canyon.",
         "Neighbors": {
-          "West": "West of House",
-          "North": "West of House",
-          "East": "North of House",
-          "South": "West of House"
+          "West": "Forest 3",
+          "North": "Forest 3",
+          "South": "Forest 2"
         }
       }
     ],
-    "StartingLocation": "dsdasdas"
+    "StartingLocation": "North of House"
   },
   "WelcomeMessage": "Welcome to Zork!",
   "ExitMessage": "Best of luck, traveler!"

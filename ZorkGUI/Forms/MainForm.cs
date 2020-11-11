@@ -25,8 +25,7 @@ namespace ZorkGUI
             _NeighborControls.AddRange(new NeighborControl[] { northNeighborControl, southNeighborControl, eastNeighborControl, westNeighborControl });
 
             ViewModel = new GameViewModel();
-            _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;
-            
+            _ViewModel.PropertyChanged += _ViewModel_PropertyChanged;            
 
             IsGameLoaded = false;
         }
@@ -69,7 +68,7 @@ namespace ZorkGUI
                 SaveGame.Enabled = _IsWorldLoaded;
                 SaveGameAs.Enabled = _IsWorldLoaded;
                 changeWorldSettingsToolStripMenuItem.Enabled = _IsWorldLoaded;
-                launchGameToolStripMenuItem.Enabled = _IsWorldLoaded;
+                //launchGameToolStripMenuItem.Enabled = _IsWorldLoaded;
             }
         }
 
@@ -106,13 +105,28 @@ namespace ZorkGUI
 
         private void OpenGame_Click(object sender, EventArgs e)
         {
-            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            if (ViewModel.IsModified) 
             {
+                if(MessageBox.Show("Open a new world? all unsaved progress will be lost", "Open World", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+                    OpenFileDialog();
+                }                              
+            } 
+            else 
+            {
+                OpenFileDialog();
+            }
+
+        }
+
+        private void OpenFileDialog() {
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 ViewModel.Game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
                 ViewModel.FileName = openFileDialog.FileName;
                 IsGameLoaded = true;
                 RefreshViewModel();
                 RefreshSelection();
+
+                ViewModel.RefreshModify();
             }
         }
 
@@ -155,7 +169,13 @@ namespace ZorkGUI
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            if (ViewModel.IsModified == true) {
+                if(MessageBox.Show("Close Game file? all unsaved progress will be lost", "Open World", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.OK) {
+                    Close();
+                }
+            } else {
+                Close();
+            }
         }
 
         private void SaveGame_Click(object sender, EventArgs e)
@@ -166,6 +186,7 @@ namespace ZorkGUI
                 return;
             }
             ViewModel.SaveWorld();
+            ViewModel.RefreshModify();
         }
 
         private void SaveGameAs_Click(object sender, EventArgs e)
@@ -174,6 +195,7 @@ namespace ZorkGUI
             {
                 ViewModel.FileName = saveFileDialog.FileName;
                 ViewModel.SaveWorld();
+                ViewModel.RefreshModify();
             }
         }
 
@@ -245,10 +267,5 @@ namespace ZorkGUI
         private bool _IsWorldLoaded;
         private List<NeighborControl> _NeighborControls = new List<NeighborControl>();
 
-        private void launchGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ViewModel.Game = Game.Load(ViewModel.FileName);
-            ViewModel.Game.Run();
-        }
     }
 }

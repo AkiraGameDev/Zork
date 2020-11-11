@@ -25,9 +25,9 @@ namespace ZorkGUI.ViewModels
         }
 
         public BindingList<Room> Rooms {
-            get => _rooms; 
+            get => _rooms;
             set {
-                if(_rooms != value) {
+                if (_rooms != value) {
                     _rooms = value;
                     OnPropertyChanged();
                 }
@@ -38,43 +38,34 @@ namespace ZorkGUI.ViewModels
         public Game Game {
             get => _Game;
             set {
-                if (_Game != value) 
-                {
-                    if(_Game != null)
-                    {
+                if (_Game != value) {
+                    if (_Game != null) {
                         _Game.PropertyChanged -= Game_PropertyChanged;
                         _Game.World.PropertyChanged -= Game_PropertyChanged;
-                        foreach (Room room in _Game.World.Rooms)
-                        {
+                        foreach (Room room in _Game.World.Rooms) {
                             room.PropertyChanged -= Game_PropertyChanged;
                         }
                     }
 
                     _Game = value;
 
-                    if (_Game != null) 
-                    {
+                    if (_Game != null) {
                         Rooms = new BindingList<Room>(_Game.World.Rooms.ToList());
                         OnPropertyChanged();
                         _Game.PropertyChanged += Game_PropertyChanged;
                         _Game.World.PropertyChanged += Game_PropertyChanged;
-                        foreach (Room room in _Game.World.Rooms)
-                        {
+                        foreach (Room room in _Game.World.Rooms) {
                             room.PropertyChanged += Game_PropertyChanged;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         Rooms = new BindingList<Room>(Array.Empty<Room>());
                     }
                 }
             }
         }
 
-        public bool IsModified { get; set; }
-
-        private void Game_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
+        public bool IsModified { get => mIsModified; set => mIsModified = value; }
+        private void Game_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             IsModified = true;
             PropertyChanged?.Invoke(this, e);
         }
@@ -85,6 +76,10 @@ namespace ZorkGUI.ViewModels
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void RefreshModify() {
+            mIsModified = false;
         }
 
         public void SaveWorld() {
@@ -108,5 +103,6 @@ namespace ZorkGUI.ViewModels
         private Game _Game;
         private string _fileName;
         private BindingList<Room> _rooms;
+        private bool mIsModified = false;
     }
 }

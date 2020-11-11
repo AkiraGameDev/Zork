@@ -3,13 +3,8 @@
     "Rooms": [
       {
         "Name": "Enter Room Named",
-        "Description": "Enter Room Description",
-        "Neighbors": {
-          "North": "Enter Room Named",
-          "East": "Enter Room Named",
-          "West": "Enter Room Named",
-          "South": "Enter Room Named"
-        }
+        "Description": "aowiwiwwwwww",
+        "Neighbors": {}
       }
     ],
     "StartingLocation": "Enter Room Name"
